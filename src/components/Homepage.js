@@ -43,6 +43,29 @@ const HomePage = () => {
     },
   ];
 
+  const services = [
+    {
+      name: "Kartu Keluarga",
+      path: "/pelayanan/kartukeluarga",
+      description: "Informasi dan layanan kartu keluarga untuk warga desa",
+    },
+    {
+      name: "E-KTP",
+      path: "/pelayanan/e-ktp",
+      description: "Informasi dan layanan e-ktp untuk warga desa",
+    },
+    {
+      name: "KIA",
+      path: "/pelayanan/kia",
+      description: "Informasi dan layanan kia untuk warga desa",
+    },
+    {
+      name: "Akte Kelahiran",
+      path: "/pelayanan/aktekelahiran",
+      description: "Informasi dan layanan akte kelahiran untuk warga desa",
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation Bar */}
@@ -170,36 +193,34 @@ const HomePage = () => {
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold mb-8">Layanan Desa</h2>
           <div className="grid md:grid-cols-4 gap-6">
-            {["Administrasi", "Kependudukan", "Kesehatan", "Pendidikan"].map(
-              (service) => (
-                <div
-                  key={service}
-                  className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition"
+            {services.map((service) => (
+              <div
+                key={service.name}
+                className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition"
+              >
+                <h3 className="text-xl font-semibold mb-2">{service.name}</h3>
+                <p className="text-gray-600 mb-4">{service.description}</p>
+                <Link
+                  href={service.path}
+                  className="text-green-600 hover:text-green-700 flex items-center"
                 >
-                  <h3 className="text-xl font-semibold mb-2">{service}</h3>
-                  <p className="text-gray-600 mb-4">
-                    Informasi dan layanan {service.toLowerCase()} untuk warga
-                    desa
-                  </p>
-                  <button className="text-green-600 hover:text-green-700 flex items-center">
-                    Selengkapnya
-                    <ChevronRight className="h-4 w-4 ml-1" />
-                  </button>
-                </div>
-              )
-            )}
+                  Selengkapnya
+                  <ChevronRight className="h-4 w-4 ml-1" />
+                </Link>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
+      {/* <footer className="bg-gray-900 text-white py-12">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-8">
             <div>
               <h3 className="text-xl font-semibold mb-4">Desa Tawangharjo</h3>
               <p className="text-gray-400">
-                Kecamatan Giriwoyo, Kabupaten Wonogiri
+                Kecamatan Giriwoyo, Kabupaten Wonogiri Mbangun Wonogiri
                 <br />
                 Provinsi Jawa Tengah
               </p>
@@ -231,7 +252,7 @@ const HomePage = () => {
             © 2024 Desa Tawangharjo. All rights reserved.
           </div>
         </div>
-      </footer>
+      </footer> */}
     </div>
   );
 };
