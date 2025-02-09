@@ -12,9 +12,11 @@ const Navigation = () => {
   const menuItems = [
     { title: "Beranda", link: "/" },
     { title: "Berita Terbaru", link: "/news" },
+    
     {
       title: "Profil Desa",
       items: [
+        { title: "Tentang Kami", link: "/profil/tentang-kami" },
         { title: "Sejarah", link: "/profil/sejarah" },
         { title: "Visi Misi", link: "/profil/visi-misi" },
         { title: "Struktur Organisasi", link: "/profil/struktur" },
@@ -24,9 +26,16 @@ const Navigation = () => {
     {
       title: "Pelayanan",
       items: [
-        { title: "Administrasi", link: "/pelayanan/administrasi" },
-        { title: "Surat Menyurat", link: "/pelayanan/surat" },
-        { title: "Pengaduan", link: "/pelayanan/pengaduan" },
+        { title: "Kartu Keluarga", link: "/pelayanan/kartukeluarga" },
+        { title: "E-KTP", link: "/pelayanan/e-ktp" },
+        { title: "KIA", link: "/pelayanan/kia" },
+        { title: "Akte Kelahiran", link: "/pelayanan/aktekelahiran" },
+        { title: "Akte Kematian", link: "/pelayanan/aktekematian" },
+        { title: "Akte Perceraian", link: "/pelayanan/akteperceraian" },
+        { title: "Akte Kematian", link: "/pelayanan/aktekematian" },
+        { title: "SKDWNI", link: "/pelayanan/skdwni" },
+        { title: "SKPWNI", link: "/pelayanan/skpwni" },
+        { title: "Saran & Pengaduan", link: "/pelayanan/saranpengaduan" },
       ],
     },
     {
