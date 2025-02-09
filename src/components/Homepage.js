@@ -1,8 +1,48 @@
 import React from "react";
-import { Menu, Search, ChevronRight } from "lucide-react";
+import { Menu, Search, ChevronRight, Calendar, User } from "lucide-react";
 import Link from "next/link";
 
 const HomePage = () => {
+  const news = [
+    {
+      id: 1,
+      title: "Pelantikan BPD Desa Tawangharjo",
+      author: "Tim SID, Tawangharjo",
+      date: "14 Januari 2024",
+      image: "/News_Pelantikan.jpeg",
+      excerpt:
+        "Desa Tawangharjo baru-baru ini mengadakan acara pelantikan anggota Badan Permusyawaratan Desa (BPD) yang baru dalam rangka pergantian antar waktu (PAW)...",
+    },
+    {
+      id: 2,
+      title: "Penyerahan Laptop Untuk Guru PAUD Desa Tawangharjo",
+      author: "Siti Nuryani, Tawangharjo",
+      date: "13 Mei 2024",
+      image: "/News_Pemdes.jpeg",
+      excerpt:
+        "Pemerintah Desa Tawangharjo secara resmi menyerahkan satu unit laptop kepada Tendik PAUD Kasih Ibu pada hari Senin, 13 Mei 2024...",
+    },
+    {
+      id: 3,
+      title: "Pemdes Pandansari Salurkan BLT Dana Desa Tahun Anggaran 2024",
+      author: "Siti Nuryani, Tawangharjo",
+      date: "10 Mei 2024",
+      image: "/News_Penyerahan.jpeg",
+      excerpt:
+        "Program Bantuan Langsung Tunai Dana Desa tahun 2024 telah disalurkan kepada warga yang memenuhi kriteria...",
+    },
+    {
+      id: 4,
+      title:
+        "Pertandingan Persahabatan SSB Tawangharjo Vs SSB Baturetno Berlangsung Seru dan Meriah..",
+      author: "Siti Nuryani, Tawangharjo",
+      date: "05 Mei 2024",
+      image: "/News_Pertandingan.jpeg",
+      excerpt:
+        "WONOGIRI, 05 Mei 2024, Sekolah Sepak Bola (SSB) Desa Tawangharjo dan SBB Baturetno   menggelar pertandingan persahabatan di Lapangan Desa Selomarto, Minggu (5/5/2024)......",
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation Bar */}
@@ -71,30 +111,49 @@ const HomePage = () => {
       {/* News Section */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-8">Berita Terbaru</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[1, 2, 3].map((item) => (
+          <div className="flex justify-between items-center mb-8">
+            <h2 className="text-3xl font-bold">Berita Terbaru</h2>
+            <Link
+              href="/news"
+              className="text-green-600 hover:text-green-700 flex items-center"
+            >
+              Lihat Semua Berita
+              <ChevronRight className="h-4 w-4 ml-1" />
+            </Link>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {news.map((item) => (
               <div
-                key={item}
-                className="bg-white rounded-lg shadow-lg overflow-hidden"
+                key={item.id}
+                className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
               >
-                <img
-                  src="/api/placeholder/400/250"
-                  alt="News"
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2">
-                    Pelantikan BPD Desa Tawangharjo
+                <div className="relative h-46">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold mb-2 line-clamp-2 h-14">
+                    {item.title}
                   </h3>
-                  <p className="text-gray-600 mb-4">14 Januari 2024</p>
-                  <p className="text-gray-700 mb-4">
-                    Acara pelantikan anggota Badan Permusyawaratan Desa (BPD)
-                    yang baru dalam rangka pergantian antar waktu...
+                  <div className="flex items-center text-sm text-gray-500 mb-3 space-x-4">
+                    <div className="flex items-center">
+                      <User className="h-4 w-4 mr-1" />
+                      <span className="truncate">{item.author}</span>
+                    </div>
+                    <div className="flex items-center">
+                      <Calendar className="h-4 w-4 mr-1" />
+                      <span>{item.date}</span>
+                    </div>
+                  </div>
+                  <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                    {item.excerpt}
                   </p>
                   <Link
-                    href="/news"
-                    className="text-green-600 hover:text-green-700 flex items-center"
+                    href={`/news/${item.id}`}
+                    className="text-green-600 hover:text-green-700 flex items-center text-sm"
                   >
                     Baca Selengkapnya
                     <ChevronRight className="h-4 w-4 ml-1" />

@@ -61,7 +61,7 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center space-x-4">
             <img
-              src="/api/placeholder/40/40"
+              src="Logo_tawangharjo.png"
               alt="Logo Desa"
               className="h-10 w-10"
             />

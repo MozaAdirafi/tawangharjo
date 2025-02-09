@@ -1,32 +1,45 @@
-import React from 'react';
-import { Calendar, User, ChevronRight } from 'lucide-react';
+import React from "react";
+import { Calendar, User, ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 const NewsPage = () => {
   const news = [
     {
       id: 1,
-      title: 'Pelantikan BPD Desa Tawangharjo',
-      author: 'Tim SID, Tawangharjo',
-      date: '14 Januari 2024',
-      image: '/api/placeholder/800/400',
-      excerpt: 'Desa Tawangharjo baru-baru ini mengadakan acara pelantikan anggota Badan Permusyawaratan Desa (BPD) yang baru dalam rangka pergantian antar waktu (PAW)...'
+      title: "Pelantikan BPD Desa Tawangharjo",
+      author: "Tim SID, Tawangharjo",
+      date: "14 Januari 2024",
+      image: '/News_Pelantikan.jpeg',
+      excerpt:
+        "Desa Tawangharjo baru-baru ini mengadakan acara pelantikan anggota Badan Permusyawaratan Desa (BPD) yang baru dalam rangka pergantian antar waktu (PAW)...",
     },
     {
       id: 2,
-      title: 'Penyerahan Laptop Untuk Guru PAUD Desa Tawangharjo',
-      author: 'Siti Nuryani, Tawangharjo',
-      date: '13 Mei 2024',
-      image: '/api/placeholder/800/400',
-      excerpt: 'Pemerintah Desa Tawangharjo secara resmi menyerahkan satu unit laptop kepada Tendik PAUD Kasih Ibu pada hari Senin, 13 Mei 2024...'
+      title: "Penyerahan Laptop Untuk Guru PAUD Desa Tawangharjo",
+      author: "Siti Nuryani, Tawangharjo",
+      date: "13 Mei 2024",
+      image: '/News_Pemdes.jpeg',
+      excerpt:
+        "Pemerintah Desa Tawangharjo secara resmi menyerahkan satu unit laptop kepada Tendik PAUD Kasih Ibu pada hari Senin, 13 Mei 2024...",
     },
     {
       id: 3,
-      title: 'Pemdes Pandansari Salurkan BLT Dana Desa Tahun Anggaran 2024',
-      author: 'Admin Desa',
-      date: '10 Mei 2024',
-      image: '/api/placeholder/800/400',
-      excerpt: 'Program Bantuan Langsung Tunai Dana Desa tahun 2024 telah disalurkan kepada warga yang memenuhi kriteria...'
-    }
+      title: "Pemdes Pandansari Salurkan BLT Dana Desa Tahun Anggaran 2024",
+      author: "Siti Nuryani, Tawangharjo",
+      date: "10 Mei 2024",
+      image: '/News_Penyerahan.jpeg',
+      excerpt:
+        "Program Bantuan Langsung Tunai Dana Desa tahun 2024 telah disalurkan kepada warga yang memenuhi kriteria...",
+    },
+    {
+      id: 4,
+      title: "Pertandingan Persahabatan SSB Tawangharjo Vs SSB Baturetno Berlangsung Seru dan Meriah..",
+      author: "Siti Nuryani, Tawangharjo",
+      date: "05 Mei 2024",
+      image: '/News_Pertandingan.jpeg',
+      excerpt:
+        "WONOGIRI, 05 Mei 2024, Sekolah Sepak Bola (SSB) Desa Tawangharjo dan SBB Baturetno   menggelar pertandingan persahabatan di Lapangan Desa Selomarto, Minggu (5/5/2024)......",
+    },
   ];
 
   return (
@@ -35,20 +48,22 @@ const NewsPage = () => {
         {/* Page Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-800">Berita Terbaru</h1>
-          <p className="text-gray-600 mt-2">Informasi terkini seputar Desa Tawangharjo</p>
+          <p className="text-gray-600 mt-2">
+            Informasi terkini seputar Desa Tawangharjo
+          </p>
         </div>
 
         {/* News Grid */}
         <div className="space-y-8">
           {news.map((item) => (
-            <article 
-              key={item.id} 
+            <article
+              key={item.id}
               className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow"
             >
               <div className="md:flex">
-                <div className="md:w-1/3">
-                  <img 
-                    src={item.image} 
+                <div className="md:w-1/5">
+                  <img
+                    src={item.image}
                     alt={item.title}
                     className="h-full w-full object-cover"
                   />
@@ -67,13 +82,14 @@ const NewsPage = () => {
                       {item.date}
                     </div>
                   </div>
-                  <p className="text-gray-600 mb-4">
-                    {item.excerpt}
-                  </p>
-                  <button className="text-green-600 hover:text-green-700 flex items-center text-sm font-medium">
+                  <p className="text-gray-600 mb-4">{item.excerpt}</p>
+                  <Link
+                    href={`/news/${item.id}`}
+                    className="text-green-600 hover:text-green-700 flex items-center text-sm font-medium"
+                  >
                     Baca Selengkapnya
                     <ChevronRight className="h-4 w-4 ml-1" />
-                  </button>
+                  </Link>
                 </div>
               </div>
             </article>
@@ -83,9 +99,15 @@ const NewsPage = () => {
         {/* Pagination */}
         <div className="mt-8 flex justify-center">
           <div className="flex space-x-2">
-            <button className="px-4 py-2 border rounded-md hover:bg-gray-50">1</button>
-            <button className="px-4 py-2 border rounded-md hover:bg-gray-50">2</button>
-            <button className="px-4 py-2 border rounded-md hover:bg-gray-50">3</button>
+            <button className="px-4 py-2 border rounded-md hover:bg-gray-50">
+              1
+            </button>
+            <button className="px-4 py-2 border rounded-md hover:bg-gray-50">
+              2
+            </button>
+            <button className="px-4 py-2 border rounded-md hover:bg-gray-50">
+              3
+            </button>
           </div>
         </div>
       </div>
