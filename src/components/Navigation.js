@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ChevronDown, Search } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 const Navigation = () => {
   const router = useRouter();
@@ -12,7 +12,7 @@ const Navigation = () => {
   const menuItems = [
     { title: "Beranda", link: "/" },
     { title: "Berita Terbaru", link: "/news" },
-    
+
     {
       title: "Profil Desa",
       items: [
@@ -72,7 +72,7 @@ const Navigation = () => {
             <img
               src="Logo_tawangharjo.png"
               alt="Logo Desa"
-              className="h-10 w-10"
+              className="h-10 w-auto" // Set height and maintain aspect ratio
             />
             <span className="font-semibold text-white">DESA TAWANGHARJO</span>
           </Link>
@@ -137,16 +137,7 @@ const Navigation = () => {
             ))}
           </div>
 
-          <div className="flex items-center space-x-4">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Cari..."
-                className="pl-3 pr-10 py-1 rounded-full border text-sm w-32 focus:w-48 transition-all text-gray-800"
-              />
-              <Search className="absolute right-3 top-1.5 h-4 w-4 text-gray-400" />
-            </div>
-          </div>
+
         </div>
       </div>
     </nav>
