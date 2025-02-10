@@ -1,8 +1,12 @@
-import React from 'react';
+"use client"
+
+import React, { useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 
 const StrukturOrganisasi = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const strukturData = [
     { 
       label: 'Badan Permusyawaratan Desa (BPD)', 
@@ -59,7 +63,7 @@ const StrukturOrganisasi = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-green-100">
+    <div className="min-h-screen">
       <Head>
         <title>Struktur Organisasi - Desa Tawangharjo</title>
         <meta 
@@ -118,7 +122,7 @@ const StrukturOrganisasi = () => {
             </div>
             
             <div className="flex items-center justify-center p-8 bg-green-50">
-              <div className="bg-white rounded-2xl shadow-lg p-6 text-center transform transition-all hover:scale-105">
+              <div className="bg-white rounded-2xl shadow-lg p-6 text-center transform transition-all hover:scale-105" onClick={() => setIsModalOpen(true)}>
                 <Image 
                   src="/Struktur_Diagram.jpg" 
                   alt="Diagram Struktur Organisasi" 
@@ -133,6 +137,15 @@ const StrukturOrganisasi = () => {
             </div>
           </div>
         </div>
+
+        {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50">
+          <div className="relative">
+            <button onClick={() => setIsModalOpen(false)} className="absolute top-4 right-4 text-white text-2xl font-bold">&times;</button>
+            <Image src="/Struktur_Diagram.jpg" alt="Diagram Struktur Organisasi" width={1000} height={800} className="rounded-xl shadow-lg" />
+          </div>
+        </div>
+      )}
 
         <div className="mt-8 text-center">
           <p className="text-green-800 text-sm opacity-80">

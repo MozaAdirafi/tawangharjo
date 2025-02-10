@@ -8,7 +8,7 @@ const NewsPage = () => {
       id: 1,
       title: "Pelantikan BPD Desa Tawangharjo",
       author: "Tim SID, Tawangharjo",
-      date: "14 Januari 2024",
+      date: "14 Januari 2025",
       image: '/News_Pelantikan.jpeg',
       excerpt:
         "Desa Tawangharjo baru-baru ini mengadakan acara pelantikan anggota Badan Permusyawaratan Desa (BPD) yang baru dalam rangka pergantian antar waktu (PAW)...",
@@ -97,7 +97,7 @@ const NewsPage = () => {
         </div>
 
         {/* Pagination */}
-        <div className="mt-8 flex justify-center">
+        {/* <div className="mt-8 flex justify-center">
           <div className="flex space-x-2">
             <button className="px-4 py-2 border rounded-md hover:bg-gray-50">
               1
@@ -109,7 +109,7 @@ const NewsPage = () => {
               3
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

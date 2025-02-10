@@ -6,6 +6,7 @@ import {
   MapPin,
   Mail,
   Phone,
+  LinkIcon,
   Youtube,
   PhoneCall,
 } from "lucide-react";
@@ -29,24 +30,46 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Contact Section */}
-          <div>
-            <h3 className="text-xl font-semibold mb-4">Kontak</h3>
-            <div className="text-gray-400 space-y-2">
-              <div className="flex items-center">
-                <Mail className="h-4 w-4 mr-2" />
-                <span>info@desatawangharjo.go.id</span>
-              </div>
-              <div className="flex items-center">
-                <Phone className="h-4 w-4 mr-2" />
-                <span>(0123) 456789</span>
-              </div>
-              <div className="flex items-center">
-                <MapPin className="h-4 w-4 mr-2" />
-                <span>Dusun Pangkah RT.001/RW.001</span>
-              </div>
-            </div>
-          </div>
+{/* Contact Section */}
+<div>
+  <h3 className="text-xl font-semibold mb-4 text-white">Tautan</h3>
+  <div className="text-gray-400 space-y-3">
+    <div className="flex items-center">
+      <LinkIcon className="h-4 w-4 mr-2 text-blue-400" />
+      <a 
+        href="/news" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        className="underline"
+      >
+        Berita Baru
+      </a>
+    </div>
+    <div className="flex items-center">
+      <LinkIcon className="h-4 w-4 mr-2 text-blue-400" />
+      <a 
+        href="https://kec.giriwoyo.wonogirikab.go.id/" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        className="underline"
+      >
+        Kecamatan Giriwoyo
+      </a>
+    </div>
+    <div className="flex items-center">
+      <LinkIcon className="h-4 w-4 mr-2 text-blue-400" />
+      <a 
+        href="https://wonogirikab.go.id/" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        className="underline"
+      >
+        Kabupaten Wonogiri
+      </a>
+    </div>
+  </div>
+</div>
+
 
           {/* Maps Section */}
           <div className="md:col-span-2">

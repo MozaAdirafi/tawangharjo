@@ -5,7 +5,7 @@ import { BookOpen, Feather, Star } from 'lucide-react';
 
 export default function Sejarah() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-green-100">
+    <div className="min-h-screen">
       <Head>
         <title>Sejarah Desa Tawangharjo</title>
         <meta name="description" content="Sejarah dan Makna Nama Desa Tawangharjo" />
@@ -14,7 +14,7 @@ export default function Sejarah() {
       {/* Hero Section */}
       <section className="relative bg-green-700 text-white py-16 overflow-hidden">
         <div className="container mx-auto px-4 relative z-10 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 animate-pulse">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Sejarah Desa Tawangharjo
           </h1>
           <p className="text-xl text-green-100 max-w-2xl mx-auto">

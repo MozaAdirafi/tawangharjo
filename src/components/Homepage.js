@@ -112,9 +112,9 @@ const HomePage = () => {
       {/* Hero Section */}
       <section className="relative h-[80vh] bg-gray-900">
         <img
-          src="/api/placeholder/1920/1080"
+          src="/Mainpage_Background.jpeg"
           alt="Desa Tawangharjo"
-          className="w-full h-full object-cover opacity-70"
+          className="w-full h-full object-cover opacity-60"
         />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center text-white">
