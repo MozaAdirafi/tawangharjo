@@ -41,7 +41,7 @@ const Navigation = () => {
     {
       title: "Pemerintahan",
       items: [
-        { title: "Program Kerja", link: "/pemerintahan/program" },
+        { title: "Struktur Organisasi", link: "/pemerintahan/struktur-organisasi" },
         { title: "Peraturan Desa", link: "/pemerintahan/peraturan" },
         { title: "Transparansi", link: "/pemerintahan/transparansi" },
       ],
