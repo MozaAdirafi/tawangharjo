@@ -18,6 +18,7 @@ const Navigation = () => {
       items: [
         { title: "Tentang Kami", link: "/profil/tentang-kami" },
         { title: "Sejarah", link: "/profil/sejarah" },
+        { title: "Demografi dan Geografi", link: "/profil/demografi-geografi" },
         { title: "Visi Misi", link: "/profil/visi-misi" },
         { title: "Struktur Organisasi", link: "/profil/struktur" },
         { title: "Perangkat Desa", link: "/profil/perangkat" },
