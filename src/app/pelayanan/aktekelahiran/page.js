@@ -1,32 +1,47 @@
+// pages/akta-kelahiran.tsx
 "use client";
 import React, { useState } from 'react';
 import Head from 'next/head';
 import { CheckCircle } from 'lucide-react';
 
-export default function KartuKeluarga() {
+export default function AktaKelahiran() {
   const [activeTab, setActiveTab] = useState('reguler');
 
   const requirements = {
     common: [
       {
-        title: 'Buku Nikah/Kutipan Akta Perkawinan/Kutipan Akta Perceraian',
+        title: 'KK Asli',
         details: [
-          'Scan dokumen asli',
-          'Fotokopi yang telah dilegalisir'
+          'Dokumen asli harus dibawa/discan',
+          'Pemeriksaan kesesuaian data'
         ]
       },
       {
-        title: 'Akta Kelahiran dan Ijazah untuk verifikasi data',
+        title: 'Foto Copy KTP Kedua Orang Tua',
         details: [
-          'Scan dokumen asli',
-          'Fotokopi dokumen'
+          'Fotokopi yang jelas dan dapat terbaca',
+          'Menunjukkan data kependudukan lengkap'
         ]
       },
       {
-        title: 'Surat Keterangan Pengganti Tanda Identitas (untuk penduduk rentan administrasi kependudukan)',
+        title: 'Surat Kelahiran dari Dokter/Bidan Asli',
         details: [
-          'Scan dokumen asli',
-          'Dokumen asli'
+          'Surat keterangan resmi dari tenaga medis',
+          'Berisi detail kelahiran yang lengkap'
+        ]
+      },
+      {
+        title: 'Buku Nikah Asli',
+        details: [
+          'Dokumen pernikahan resmi',
+          'Sebagai bukti legalitas orang tua'
+        ]
+      },
+      {
+        title: 'Fotocopy KTP 2 Orang Saksi',
+        details: [
+          'Minimal 2 saksi dengan usia di atas 21 tahun',
+          'Fotokopi KTP saksi yang jelas'
         ]
       }
     ]
@@ -34,58 +49,57 @@ export default function KartuKeluarga() {
 
   const procedures = {
     reguler: [
-      'Pemohon datang ke kantor kecamatan.',
-      'Petugas Front Office kecamatan memproses berkas persyaratan yang sudah lengkap.',
-      'Berkas yang sudah dipindai dikirim ke dinas melalui sistem untuk divalidasi.',
-      'Jika data sesuai persyaratan, Kepala Dinas akan menyetujui dan menandatangani KK secara elektronik.',
+      'Pemohon mengambil nomor antrian di loket pelayanan.',
+      'Menuju loket front office sesuai panggilan nomor antrian.',
+      'Front office melakukan verifikasi dan penginputan di aplikasi loket antrian dan SIAK.',
+      'Berkas diteruskan untuk validasi oleh kasi pencatatan sipil.',
       {
-        text: 'KK dicetak di kecamatan dan dapat diambil dengan dua cara:',
+        text: 'Pemeriksaan kelengkapan persyaratan:',
         subItems: [
-          'Pengambilan langsung di kecamatan',
-          'Pengiriman melalui jasa pos (wajib menyerahkan berkas permohonan asli)'
+          'Berkas yang memenuhi syarat akan diteruskan',
+          'Berkas tidak lengkap akan dikembalikan untuk dilengkapi'
         ]
-      }
+      },
+      'Produksi melakukan pencetakan dokumen sesuai nomor antrian.',
+      'Dokumen dicetak ditandatangani oleh kepala dinas.',
+      'Dokumen diserahkan ke bagian pengambilan berkas.',
+      'Pemohon dapat mengambil dokumen Akta Kelahiran.'
     ],
     online: [
-      'Pemohon mengunduh dan memasang aplikasi "Telunjuk Sakti Disdukcapil Wonogiri" dari Play Store.',
+      'Unduh dan instal aplikasi "Telunjuk Sakti Disdukcapil Wonogiri" dari Play Store.',
       {
-        text: 'Pindai (scan) berkas asli dan kirim melalui:',
+        text: 'Proses pengiriman berkas:',
         subItems: [
-          'Aplikasi "Telunjuk Sakti" atau',
-          'Loket online desa/kelurahan/kecamatan'
+          'Scan berkas asli',
+          'Kirim melalui aplikasi "Telunjuk Sakti"',
+          'Atau melalui loket online desa/kelurahan/kecamatan'
         ]
       },
-      {
-        text: 'Petugas Front Office dinas/kecamatan melakukan:',
-        subItems: [
-          'Verifikasi berkas',
-          'Pemasukan data pemohon ke SIAK'
-        ]
-      },
-      'Pejabat Disdukcapil yang ditunjuk memvalidasi draft KK dan mengajukan untuk ditandatangani secara elektronik oleh Kepala Disdukcapil.',
-      'Kepala Dinas melakukan Tanda Tangan Elektronik (TTE) pada KK.',
-      'Tanda Tangan Elektronik pada KK dikirim melalui SIAK ke BSrE (Badan Siber dan Sandi Negara) untuk mendapatkan persetujuan.',
-      'KK dapat dicetak setelah masuk dalam Daftar Cetak KK Tersertifikasi pada SIAK.',
-      'Pemohon akan menerima pemberitahuan melalui SMS ketika dokumen KK dengan tanda tangan elektronik siap diambil.'
+      'Front Office (FO) dinas memverifikasi berkas dan menginput data ke SIAK.',
+      'Draft Akta Kelahiran divalidasi oleh pejabat Disdukcapil.',
+      'Kepala Dinas melakukan Tanda Tangan Elektronik (TTE).',
+      'Tanda Tangan Elektronik dikirim ke BSrE untuk persetujuan.',
+      'Akta Kelahiran dapat dicetak setelah tersertifikasi di SIAK.',
+      'Pemohon dapat mengambil dokumen setelah proses selesai.'
     ]
   };
 
   return (
     <div className="min-h-screen bg-gray-50">
       <Head>
-        <title>Layanan Kartu Keluarga - Desa Tawangharjo</title>
+        <title>Layanan Akta Kelahiran - Desa Tawangharjo</title>
         <meta
           name="description"
-          content="Informasi lengkap tentang pembuatan dan pengurusan Kartu Keluarga di Desa Tawangharjo"
+          content="Informasi lengkap tentang pembuatan dan pengurusan Akta Kelahiran di Desa Tawangharjo"
         />
       </Head>
 
       {/* Hero Section */}
       <section className="bg-green-700 text-white py-16">
         <div className="container mx-auto px-4">
-          <h1 className="text-4xl md:text-5xl font-bold text-center mb-4">Layanan Kartu Keluarga</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-center mb-4">Layanan Akta Kelahiran</h1>
           <p className="text-xl text-center text-green-100">
-            Informasi lengkap tentang prosedur dan persyaratan pengurusan Kartu Keluarga
+            Informasi lengkap tentang prosedur dan persyaratan pengurusan Akta Kelahiran
           </p>
         </div>
       </section>
@@ -145,7 +159,7 @@ export default function KartuKeluarga() {
           {/* Right Column - Prosedur Pelaksanaan */}
           <div className="bg-white rounded-lg shadow-lg p-8">
             <h2 className="text-2xl font-bold text-gray-800 mb-6">
-              Prosedur Pembuatan KK :<br></br> {activeTab === 'online' ? 'Online' : 'Langsung (Reguler)'}
+              Prosedur Pelayanan Akta Kelahiran : <br></br> {activeTab === 'online' ? 'Online' : 'Langsung (Reguler)'}
             </h2>
             <ol className="space-y-4">
               {procedures[activeTab].map((proc, index) => (

@@ -96,7 +96,7 @@ export default function EKTP() {
         <div className="grid md:grid-cols-2 gap-8">
           {/* Left Column - Persyaratan */}
           <div className="bg-white rounded-lg shadow-lg p-8">
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">Persyaratan Pembuatan KTP</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-6">Persyaratan</h2>
             
             {/* Syarat Umum */}
             <div className="mb-6">
@@ -128,7 +128,7 @@ export default function EKTP() {
           {/* Right Column - Prosedur Pelaksanaan */}
           <div className="bg-white rounded-lg shadow-lg p-8">
             <h2 className="text-2xl font-bold text-gray-800 mb-6">
-              Prosedur Pembuatan E-KTP: Pelayanan {activeTab === 'online' ? 'Online' : 'Reguler (Langsung)'}
+              Prosedur Pembuatan E-KTP : <br></br>Pelayanan {activeTab === 'online' ? 'Online' : 'Reguler (Langsung)'}
             </h2>
             <ol className="space-y-4">
               {procedures[activeTab].map((proc, index) => (

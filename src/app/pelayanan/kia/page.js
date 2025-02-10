@@ -147,7 +147,7 @@ export default function KartuIdentitasAnak() {
           {/* Right Column - Prosedur Pelaksanaan */}
           <div className="bg-white rounded-lg shadow-lg p-8">
             <h2 className="text-2xl font-bold text-gray-800 mb-6">
-              Prosedur Pembuatan KIA {activeTab === 'online' ? 'Online' : 'Reguler'}
+              Prosedur Pembuatan KIA :<br></br> {activeTab === 'online' ? 'Online' : 'Langsung (Reguler)'}
             </h2>
             <ol className="space-y-4">
               {procedures[activeTab].map((proc, index) => (
