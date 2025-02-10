@@ -14,13 +14,12 @@ export default function TentangKami() {
       </Head>
 
       {/* Hero Section */}
-      <section className="relative h-[40vh] bg-gray-900">
+      <section className="relative h-[40vh] bg-green-700">
         {/* <img
           src="/api/placeholder/1920/600"
           alt="PTKD Header"
           className="w-full h-full object-cover opacity-70"
         /> */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-900/70" />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center text-white max-w-4xl px-4">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">Platform Tata Kelola Desa (PTKD)</h1>

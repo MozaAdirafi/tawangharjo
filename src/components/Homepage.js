@@ -114,7 +114,7 @@ const HomePage = () => {
         <img
           src="/Mainpage_Background.jpeg"
           alt="Desa Tawangharjo"
-          className="w-full h-full object-cover opacity-60"
+          className="w-full h-full object-cover opacity-40"
         />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center text-white">
