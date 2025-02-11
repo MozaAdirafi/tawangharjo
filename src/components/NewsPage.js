@@ -1,8 +1,19 @@
 import React from "react";
-import { Calendar, User, ChevronRight } from "lucide-react";
+import { Calendar, User, ChevronRight, ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { notFound } from "next/navigation";
+
+
+// Shared styled card component
+const Card = ({ children, className = "" }) => (
+  <div className={`bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 ${className}`}>
+    {children}
+  </div>
+);
+
 
 const NewsPage = () => {
+
   const news = [
     {
       id: 1,
@@ -43,73 +54,56 @@ const NewsPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-8">
-        {/* Page Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-800">Berita Terbaru</h1>
-          <p className="text-gray-600 mt-2">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      <div className="container mx-auto px-4 py-12">
+        {/* Enhanced Header */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-800 mb-3">Berita Terbaru</h1>
+          <div className="w-20 h-1 bg-green-600 mx-auto mb-4"></div>
+          <p className="text-gray-600 text-lg">
             Informasi terkini seputar Desa Tawangharjo
           </p>
         </div>
 
-        {/* News Grid */}
-        <div className="space-y-8">
+        {/* Enhanced News Grid */}
+        <div className="space-y-6">
           {news.map((item) => (
-            <article
-              key={item.id}
-              className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow"
-            >
-              <div className="md:flex">
-                <div className="md:w-1/5">
+            <Card key={item.id}>
+              <div className="md:flex group">
+                <div className="md:w-1/3 lg:w-1/4 overflow-hidden">
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="h-full w-full object-cover"
+                    className="h-64 md:h-full w-full object-cover transform group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
-                <div className="md:w-2/3 p-6">
-                  <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+                <div className="md:w-2/3 lg:w-3/4 p-6 md:p-8">
+                  <h2 className="text-2xl font-bold text-gray-800 mb-3 group-hover:text-green-600 transition-colors">
                     {item.title}
                   </h2>
-                  <div className="flex items-center text-sm text-gray-500 mb-4 space-x-4">
+                  <div className="flex flex-wrap items-center text-sm text-gray-500 mb-4 gap-4">
                     <div className="flex items-center">
-                      <User className="h-4 w-4 mr-1" />
+                      <User className="h-4 w-4 mr-2 text-green-600" />
                       {item.author}
                     </div>
                     <div className="flex items-center">
-                      <Calendar className="h-4 w-4 mr-1" />
+                      <Calendar className="h-4 w-4 mr-2 text-green-600" />
                       {item.date}
                     </div>
                   </div>
-                  <p className="text-gray-600 mb-4">{item.excerpt}</p>
+                  <p className="text-gray-600 mb-6 leading-relaxed">{item.excerpt}</p>
                   <Link
                     href={`/news/${item.id}`}
-                    className="text-green-600 hover:text-green-700 flex items-center text-sm font-medium"
+                    className="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors group"
                   >
                     Baca Selengkapnya
-                    <ChevronRight className="h-4 w-4 ml-1" />
+                    <ChevronRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </div>
               </div>
-            </article>
+            </Card>
           ))}
         </div>
-
-        {/* Pagination */}
-        {/* <div className="mt-8 flex justify-center">
-          <div className="flex space-x-2">
-            <button className="px-4 py-2 border rounded-md hover:bg-gray-50">
-              1
-            </button>
-            <button className="px-4 py-2 border rounded-md hover:bg-gray-50">
-              2
-            </button>
-            <button className="px-4 py-2 border rounded-md hover:bg-gray-50">
-              3
-            </button>
-          </div>
-        </div> */}
       </div>
     </div>
   );

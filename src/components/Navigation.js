@@ -3,16 +3,16 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 
 const Navigation = () => {
   const router = useRouter();
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const menuItems = [
     { title: "Beranda", link: "/" },
     { title: "Berita Terbaru", link: "/news" },
-
     {
       title: "Profil Desa",
       items: [
@@ -31,7 +31,6 @@ const Navigation = () => {
         { title: "Akte Kelahiran", link: "/pelayanan/aktekelahiran" },
         { title: "Akte Kematian", link: "/pelayanan/aktekematian" },
         { title: "Akte Perceraian", link: "/pelayanan/akteperceraian" },
-        { title: "Akte Kematian", link: "/pelayanan/aktekematian" },
         { title: "SKDWNI", link: "/pelayanan/skdwni" },
         { title: "SKPWNI", link: "/pelayanan/skpwni" },
         { title: "Saran & Pengaduan", link: "/pelayanan/saranpengaduan" },
@@ -50,22 +49,24 @@ const Navigation = () => {
   const handleMenuClick = (link) => {
     if (link) {
       router.push(link);
+      setIsMobileMenuOpen(false);
     }
   };
 
   return (
-    <nav className="bg-green-700 text-white">
+    <nav className="bg-green-700 text-white relative">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center space-x-4">
             <img
               src="Logo_tawangharjo.png"
               alt="Logo Desa"
-              className="h-10 w-auto" // Set height and maintain aspect ratio
+              className="h-10 w-auto"
             />
             <span className="font-semibold text-white">DESA TAWANGHARJO</span>
           </Link>
 
+          {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-1">
             {menuItems.map((item, index) => (
               <div
@@ -80,19 +81,14 @@ const Navigation = () => {
                       {item.title}
                       <ChevronDown className="h-4 w-4 ml-1" />
                     </button>
-
-                    {/* Invisible bridge to prevent menu from closing */}
-                    <div className="absolute w-full h-2 -bottom-2"></div>
-
                     {activeDropdown === index && (
                       <div className="absolute left-0 top-full w-48 bg-white border rounded-md shadow-lg z-50">
-                        {/* Add a small invisible extension at the top to make it easier to reach */}
                         <div className="absolute w-full h-2 -top-2"></div>
                         {item.items.map((subItem, subIndex) => (
                           <Link
                             key={subIndex}
                             href={subItem.link}
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50 transition-colors duration-150"
                           >
                             {subItem.title}
                           </Link>
@@ -103,32 +99,77 @@ const Navigation = () => {
                 ) : (
                   <Link
                     href={item.link}
-                    className="px-3 py-2 text-white hover:text-green-200 flex items-center"
+                    className="px-3 py-2 text-white hover:text-green-200 transition-colors duration-150"
                   >
                     {item.title}
                   </Link>
-                )}
-
-                {item.items && activeDropdown === index && (
-                  <div className="absolute left-0 mt-2 w-48 bg-white border rounded-md shadow-lg z-50">
-                    {item.items.map((subItem, subIndex) => (
-                      <Link
-                        key={subIndex}
-                        href={subItem.link}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      >
-                        {subItem.title}
-                      </Link>
-                    ))}
-                  </div>
                 )}
               </div>
             ))}
           </div>
 
-
+          {/* Mobile Menu Button */}
+          <button
+            className="lg:hidden p-2 rounded-md hover:bg-green-600 transition-colors duration-150"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <Menu className="h-6 w-6" />
+            )}
+          </button>
         </div>
       </div>
+
+      {/* Mobile Navigation */}
+      {isMobileMenuOpen && (
+        <div className="lg:hidden absolute top-full left-0 right-0 bg-green-700 z-50 border-t border-green-600">
+          <div className="container mx-auto px-4 py-2">
+            {menuItems.map((item, index) => (
+              <div key={index} className="relative">
+                {item.items ? (
+                  <div className="relative">
+                    <button
+                      onClick={() => setActiveDropdown(activeDropdown === index ? null : index)}
+                      className="w-full px-4 py-2 text-left flex items-center justify-between hover:bg-green-600 rounded-md transition-colors duration-150"
+                    >
+                      {item.title}
+                      <ChevronDown
+                        className={`h-4 w-4 transform transition-transform duration-200 ${
+                          activeDropdown === index ? "rotate-180" : ""
+                        }`}
+                      />
+                    </button>
+                    {activeDropdown === index && (
+                      <div className="bg-green-600 rounded-md mt-1 mb-2">
+                        {item.items.map((subItem, subIndex) => (
+                          <Link
+                            key={subIndex}
+                            href={subItem.link}
+                            className="block px-8 py-2 text-sm hover:bg-green-500 transition-colors duration-150"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                          >
+                            {subItem.title}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <Link
+                    href={item.link}
+                    className="block px-4 py-2 hover:bg-green-600 rounded-md transition-colors duration-150"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item.title}
+                  </Link>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </nav>
   );
 };

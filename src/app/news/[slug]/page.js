@@ -1,7 +1,14 @@
 import React from 'react';
-import { Calendar, User } from 'lucide-react';
+import { Calendar, User, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+
+// Shared styled card component
+const Card = ({ children, className = "" }) => (
+  <div className={`bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 ${className}`}>
+    {children}
+  </div>
+);
 
 const NewsDetailPage = ({ params }) => {
   // Sample news data array
@@ -61,63 +68,65 @@ const NewsDetailPage = ({ params }) => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       <div className="container mx-auto px-4 py-8">
-        {/* Breadcrumb */}
-        <div className="mb-6 text-sm">
-          <Link href="/" className="text-green-600 hover:text-green-700">
+        {/* Enhanced Breadcrumb */}
+        <nav className="flex items-center space-x-2 text-sm mb-8">
+          <Link href="/" className="text-green-600 hover:text-green-700 transition-colors">
             Beranda
           </Link>
-          <span className="mx-2 text-gray-500">/</span>
-          <Link href="/news" className="text-green-600 hover:text-green-700">
+          <span className="text-gray-400">/</span>
+          <Link href="/news" className="text-green-600 hover:text-green-700 transition-colors">
             Berita Terbaru
           </Link>
-          <span className="mx-2 text-gray-500">/</span>
-          <span className="text-gray-600">{newsData.title}</span>
-        </div>
+          <span className="text-gray-400">/</span>
+          <span className="text-gray-600 truncate max-w-md">{newsData.title}</span>
+        </nav>
 
-        {/* Article Content */}
-        <article className="bg-white rounded-lg shadow-sm overflow-hidden">
-          <div className="relative w-full aspect-[16/9]">
+        {/* Enhanced Article Content */}
+        <Card className="overflow-hidden">
+          <div className="relative w-full aspect-video ">
             <img
               src={newsData.image}
               alt={newsData.title}
-              className="absolute inset-0 w-full h-full object-contain bg-gray-100"
+              className="absolute inset-0 w-full h-full object-cover"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
           </div>
           
-          <div className="p-8">
-            <h1 className="text-3xl font-bold text-gray-800 mb-4">
+          <div className="p-6 md:p-10">
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
               {newsData.title}
             </h1>
             
-            <div className="flex items-center text-sm text-gray-500 mb-6 space-x-4">
+            <div className="flex flex-wrap items-center text-sm text-gray-500 mb-8 gap-4 p-4 bg-gray-50 rounded-lg">
               <div className="flex items-center">
-                <User className="h-4 w-4 mr-1" />
+                <User className="h-4 w-4 mr-2 text-green-600" />
                 {newsData.author}
               </div>
               <div className="flex items-center">
-                <Calendar className="h-4 w-4 mr-1" />
+                <Calendar className="h-4 w-4 mr-2 text-green-600" />
                 {newsData.date}
               </div>
             </div>
 
             <div className="prose max-w-none">
               {newsData.content.split('\n\n').map((paragraph, index) => (
-                <p key={index} className="mb-4 text-gray-700 leading-relaxed">
+                <p key={index} className="mb-6 text-gray-700 leading-relaxed text-lg">
                   {paragraph.trim()}
                 </p>
               ))}
             </div>
           </div>
-        </article>
+        </Card>
 
-        {/* Navigation between articles */}
-        <div className="mt-8 flex justify-between">
+        {/* Enhanced Navigation */}
+        <div className="mt-8">
           <Link 
             href="/news"
-            className="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
+            className="inline-flex items-center px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors group"
           >
+            <ArrowLeft className="h-4 w-4 mr-2 group-hover:-translate-x-1 transition-transform" />
             Kembali ke Berita Terbaru
           </Link>
         </div>
