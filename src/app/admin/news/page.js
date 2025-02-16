@@ -173,14 +173,6 @@ export default function AdminNews() {
               />
               <input
                 type="text"
-                name="date"
-                placeholder="Tanggal"
-                value={formData.date}
-                onChange={handleChange}
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-              <input
-                type="text"
                 name="excerpt"
                 placeholder="Ringkasan"
                 value={formData.excerpt}

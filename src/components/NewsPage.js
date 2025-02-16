@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../../config/firebase"; // Adjust path if needed
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
-import { Calendar, User, ChevronRight } from "lucide-react";
+import { Calendar, User, ChevronRight, ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 // Shared styled card component
@@ -15,10 +15,12 @@ const Card = ({ children, className = "" }) => (
 
 const NewsPage = () => {
   const [news, setNews] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 4;
 
   // Fetch news from Firestore
   useEffect(() => {
-    const q = query(collection(db, "news"), orderBy("createdAt", "desc"));
+    const q = query(collection(db, "news"), orderBy("createdAt", "asc"));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const newsData = snapshot.docs.map((doc) => ({
         id: doc.id,
@@ -27,14 +29,28 @@ const NewsPage = () => {
       setNews(newsData);
     });
 
-    // Cleanup listener on component unmount
     return () => unsubscribe();
   }, []);
+
+  // Calculate total pages
+  const totalPages = Math.ceil(news.length / itemsPerPage);
+
+  // Calculate items for the current page
+  const currentNews = news.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+  // Handle page navigation
+  const goToNextPage = () => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  };
+
+  const goToPrevPage = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       <div className="container mx-auto px-4 py-12">
-        {/* Enhanced Header */}
+        {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-800 mb-3">Berita Terbaru</h1>
           <div className="w-20 h-1 bg-green-600 mx-auto mb-4"></div>
@@ -43,10 +59,10 @@ const NewsPage = () => {
           </p>
         </div>
 
-        {/* Enhanced News Grid */}
+        {/* News Grid */}
         <div className="space-y-6">
-          {news.length > 0 ? (
-            news.map((item) => (
+          {currentNews.length > 0 ? (
+            currentNews.map((item) => (
               <Card key={item.id}>
                 <div className="md:flex group">
                   <div className="md:w-1/3 lg:w-1/4 overflow-hidden">
@@ -88,6 +104,39 @@ const NewsPage = () => {
             <div className="text-center text-gray-500">Belum ada berita yang tersedia.</div>
           )}
         </div>
+
+        {/* Pagination Controls */}
+        {news.length > itemsPerPage && (
+          <div className="mt-10 flex justify-center items-center gap-4">
+            <button
+              onClick={goToPrevPage}
+              disabled={currentPage === 1}
+              className={`px-4 py-2 flex items-center border rounded ${
+                currentPage === 1 ? "bg-gray-300 cursor-not-allowed" : "bg-green-600 text-white hover:bg-green-700"
+              } transition-colors`}
+            >
+              <ArrowLeft className="h-5 w-5 mr-2" />
+              Previous
+            </button>
+
+            <span className="text-lg text-gray-700">
+              Page {currentPage} of {totalPages}
+            </span>
+
+            <button
+              onClick={goToNextPage}
+              disabled={currentPage === totalPages}
+              className={`px-4 py-2 flex items-center border rounded ${
+                currentPage === totalPages
+                  ? "bg-gray-300 cursor-not-allowed"
+                  : "bg-green-600 text-white hover:bg-green-700"
+              } transition-colors`}
+            >
+              Next
+              <ArrowRight className="h-5 w-5 ml-2" />
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

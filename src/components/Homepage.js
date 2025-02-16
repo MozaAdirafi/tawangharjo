@@ -1,32 +1,47 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Menu, Search, ChevronRight, Calendar, User, ArrowRight, Cloud, CloudRain, Sun, CloudSun, Wind, Droplets, Thermometer } from "lucide-react";
+import {
+  Menu,
+  Search,
+  ChevronRight,
+  Calendar,
+  User,
+  ArrowRight,
+  Cloud,
+  CloudRain,
+  Sun,
+  CloudSun,
+  Wind,
+  Droplets,
+  Thermometer,
+} from "lucide-react";
 import Link from "next/link";
+import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
+import { db } from "../../config/firebase";
 
 const HomePage = () => {
-
   const [weatherData, setWeatherData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const [news, setNews] = useState([]);
 
   useEffect(() => {
     const fetchWeather = async () => {
       try {
         // Replace with your actual API key
-        const apiKey = 'zxccmHzebpIyuo3Lf3PJgSvaeXb0LfSd';
+        const apiKey = "zxccmHzebpIyuo3Lf3PJgSvaeXb0LfSd";
         // You can adjust these coordinates for Desa Tawangharjo
-        const location = 'tawangharjo'; // Example coordinates
-        
+        const location = "tawangharjo"; // Example coordinates
+
         const response = await fetch(
           `https://api.tomorrow.io/v4/weather/forecast?location=${location}&apikey=${apiKey}`
         );
-        
+
         if (!response.ok) {
-          throw new Error('Weather data fetch failed');
+          throw new Error("Weather data fetch failed");
         }
-        
+
         const data = await response.json();
         setWeatherData(data);
       } catch (err) {
@@ -39,46 +54,18 @@ const HomePage = () => {
     fetchWeather();
   }, []);
 
-  
-  const news = [
-    {
-      id: 1,
-      title: "Pelantikan BPD Desa Tawangharjo",
-      author: "Tim SID, Tawangharjo",
-      date: "14 Januari 2024",
-      image: "/News_Pelantikan.jpeg",
-      excerpt:
-        "Desa Tawangharjo baru-baru ini mengadakan acara pelantikan anggota Badan Permusyawaratan Desa (BPD) yang baru dalam rangka pergantian antar waktu (PAW)...",
-    },
-    {
-      id: 2,
-      title: "Penyerahan Laptop Untuk Guru PAUD Desa Tawangharjo",
-      author: "Siti Nuryani, Tawangharjo",
-      date: "13 Mei 2024",
-      image: "/News_Pemdes.jpeg",
-      excerpt:
-        "Pemerintah Desa Tawangharjo secara resmi menyerahkan satu unit laptop kepada Tendik PAUD Kasih Ibu pada hari Senin, 13 Mei 2024...",
-    },
-    {
-      id: 3,
-      title: "Pemdes Pandansari Salurkan BLT Dana Desa Tahun Anggaran 2024",
-      author: "Siti Nuryani, Tawangharjo",
-      date: "10 Mei 2024",
-      image: "/News_Penyerahan.jpeg",
-      excerpt:
-        "Program Bantuan Langsung Tunai Dana Desa tahun 2024 telah disalurkan kepada warga yang memenuhi kriteria...",
-    },
-    {
-      id: 4,
-      title:
-        "Pertandingan Persahabatan SSB Tawangharjo Vs SSB Baturetno Berlangsung Seru dan Meriah..",
-      author: "Siti Nuryani, Tawangharjo",
-      date: "05 Mei 2024",
-      image: "/News_Pertandingan.jpeg",
-      excerpt:
-        "WONOGIRI, 05 Mei 2024, Sekolah Sepak Bola (SSB) Desa Tawangharjo dan SBB Baturetno   menggelar pertandingan persahabatan di Lapangan Desa Selomarto, Minggu (5/5/2024)......",
-    },
-  ];
+  useEffect(() => {
+    const q = query(collection(db, "news"), orderBy("createdAt", "desc"));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const newsData = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setNews(newsData);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const services = [
     {
@@ -129,10 +116,10 @@ const HomePage = () => {
   };
 
   const formatDate = (date) => {
-    return new Date(date).toLocaleDateString('id-ID', {
-      weekday: 'long',
-      month: 'long',
-      day: 'numeric'
+    return new Date(date).toLocaleDateString("id-ID", {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
     });
   };
 
@@ -148,25 +135,26 @@ const HomePage = () => {
           />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-gray-900/50 to-gray-900"></div>
         </div>
+
         <div className="absolute inset-0 flex items-center justify-center px-4">
-          <div className="text-center text-white max-w-4xl">
-            <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight tracking-tight">
+          <div className="text-center text-white max-w-4xl mx-auto">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-6 leading-tight tracking-tight">
               Selamat Datang di
               <span className="block mt-2 bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-green-600">
                 Desa Tawangharjo
               </span>
             </h1>
-            <p className="text-xl md:text-2xl mb-12 text-gray-200 font-light">
+            <p className="text-lg sm:text-xl md:text-2xl mb-10 text-gray-200 font-light">
               Desa Tawangharjo Yang Maju dan Mandiri, Go Nyawiji Sesarengan
             </p>
-            <div className="flex flex-col md:flex-row gap-6 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link href="/news">
-                <button className="bg-gradient-to-r from-green-500 to-green-600 text-white px-10 py-4 rounded-full hover:shadow-lg hover:shadow-green-500/30 transition transform hover:-translate-y-1 font-medium">
+                <button className="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 sm:px-10 py-3 sm:py-4 rounded-full hover:shadow-lg hover:shadow-green-500/30 transition transform hover:-translate-y-1 font-medium">
                   Jelajahi Desa
                 </button>
               </Link>
               <Link href="#layanan">
-                <button className="bg-white/10 backdrop-blur-md border-2 border-white/30 text-white px-10 py-4 rounded-full hover:bg-white/20 transition transform hover:-translate-y-1 font-medium">
+                <button className="bg-white/10 backdrop-blur-md border-2 border-white/30 text-white px-6 sm:px-10 py-3 sm:py-4 rounded-full hover:bg-white/20 transition transform hover:-translate-y-1 font-medium">
                   Layanan Publik
                 </button>
               </Link>
@@ -178,7 +166,10 @@ const HomePage = () => {
           <div className="container mx-auto px-4 py-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20">
               {stats.map((stat, index) => (
-                <div key={index} className="text-center text-white group hover:transform hover:scale-105 transition-all duration-300">
+                <div
+                  key={index}
+                  className="text-center text-white group hover:transform hover:scale-105 transition-all duration-300"
+                >
                   <div className="text-3xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-green-300">
                     {stat.value}
                   </div>
@@ -197,8 +188,12 @@ const HomePage = () => {
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-16">
             <div>
-              <h2 className="text-4xl font-bold mb-3 text-gray-800">Berita Terbaru</h2>
-              <p className="text-gray-600 text-lg">Informasi terkini seputar Desa Tawangharjo</p>
+              <h2 className="text-4xl font-bold mb-3 text-gray-800">
+                Berita Terbaru
+              </h2>
+              <p className="text-gray-600 text-lg">
+                Informasi terkini seputar Desa Tawangharjo
+              </p>
             </div>
             <Link
               href="/news"
@@ -209,7 +204,7 @@ const HomePage = () => {
             </Link>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {news.map((item) => (
+            {news.slice(0, 4).map((item) => (
               <div
                 key={item.id}
                 className="bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
@@ -256,10 +251,15 @@ const HomePage = () => {
       </section>
 
       {/* Enhanced Services Section */}
-      <section id="layanan" className="py-24 bg-gradient-to-b from-white to-gray-50">
+      <section
+        id="layanan"
+        className="py-24 bg-gradient-to-b from-white to-gray-50"
+      >
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl font-bold mb-4 text-gray-800">Layanan Desa</h2>
+            <h2 className="text-4xl font-bold mb-4 text-gray-800">
+              Layanan Desa
+            </h2>
             <p className="text-gray-600 text-lg">
               Akses berbagai layanan publik dengan mudah dan cepat
             </p>
@@ -293,18 +293,22 @@ const HomePage = () => {
             <h2 className="text-4xl font-bold mb-16 text-center text-gray-800">
               Prakiraan Cuaca Desa Tawangharjo
             </h2>
-            
+
             {loading && (
               <div className="text-center py-12">
                 <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-green-500 mx-auto"></div>
-                <p className="mt-6 text-gray-600 text-lg">Memuat data cuaca...</p>
+                <p className="mt-6 text-gray-600 text-lg">
+                  Memuat data cuaca...
+                </p>
               </div>
             )}
 
             {error && (
               <div className="text-center py-12">
                 <div className="bg-red-50 rounded-2xl p-8 max-w-md mx-auto">
-                  <p className="text-red-600">Gagal memuat data cuaca. Silakan coba lagi nanti.</p>
+                  <p className="text-red-600">
+                    Gagal memuat data cuaca. Silakan coba lagi nanti.
+                  </p>
                 </div>
               </div>
             )}
@@ -312,9 +316,14 @@ const HomePage = () => {
             {weatherData && (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 {weatherData.timelines.daily.slice(0, 4).map((day, index) => (
-                  <div key={index} className="bg-white rounded-2xl shadow-xl p-8 transform hover:scale-105 transition-all duration-300">
+                  <div
+                    key={index}
+                    className="bg-white rounded-2xl shadow-xl p-8 transform hover:scale-105 transition-all duration-300"
+                  >
                     <div className="flex flex-col items-center">
-                      <h3 className="text-lg font-semibold mb-6">{formatDate(day.time)}</h3>
+                      <h3 className="text-lg font-semibold mb-6">
+                        {formatDate(day.time)}
+                      </h3>
                       <div className="mb-6 transform hover:scale-110 transition-transform duration-300">
                         {getWeatherIcon(day.values.weatherCode)}
                       </div>
@@ -329,7 +338,9 @@ const HomePage = () => {
                           </div>
                           <div className="flex items-center bg-gray-50 px-4 py-2 rounded-full">
                             <Wind className="w-5 h-5 mr-2 text-gray-500" />
-                            <span>{Math.round(day.values.windSpeedAvg)} km/h</span>
+                            <span>
+                              {Math.round(day.values.windSpeedAvg)} km/h
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -338,7 +349,7 @@ const HomePage = () => {
                 ))}
               </div>
             )}
-            
+
             <div className="mt-12 text-center text-sm text-gray-500">
               <p>Data cuaca diperbarui setiap jam</p>
               <p className="mt-2 font-medium">Powered by Tomorrow.io</p>
