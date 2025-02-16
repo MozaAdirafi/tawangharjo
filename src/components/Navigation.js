@@ -3,12 +3,16 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X, LogIn, LogOut, User } from "lucide-react";
+import { auth } from "../../config/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { signOut } from "firebase/auth";
 
 const Navigation = () => {
   const router = useRouter();
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [user] = useAuthState(auth);
 
   const menuItems = [
     { title: "Beranda", link: "/" },
@@ -43,14 +47,18 @@ const Navigation = () => {
       ],
     },
     { title: "TP PKK", link: "/tp-pkk" },
-    { title: "Posyandu", link: "/posyandu" },
   ];
 
-  const handleMenuClick = (link) => {
-    if (link) {
-      router.push(link);
-      setIsMobileMenuOpen(false);
-    }
+  // Handle Login Navigation
+  const handleLogin = () => {
+    router.push("/admin/login");
+  };
+
+  // Handle Logout
+  const handleLogout = async () => {
+    await signOut(auth);
+    setIsMobileMenuOpen(false);
+    router.push("/");
   };
 
   return (
@@ -59,7 +67,7 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center space-x-4">
             <img
-              src="Logo_tawangharjo.png"
+              src="/Logo_tawangharjo.png"
               alt="Logo Desa"
               className="h-10 w-auto"
             />
@@ -67,7 +75,7 @@ const Navigation = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-1">
+          <div className="hidden lg:flex items-center space-x-4">
             {menuItems.map((item, index) => (
               <div
                 key={index}
@@ -106,6 +114,37 @@ const Navigation = () => {
                 )}
               </div>
             ))}
+
+            {/* Admin Navigation - Only for logged-in users */}
+            {user && (
+              <Link
+                href="/admin/news"
+                className="px-3 py-2 text-white hover:text-green-200 transition-colors duration-150"
+              >
+                Kelola Berita
+              </Link>
+            )}
+
+            {/* Login/Logout Button */}
+            {user ? (
+              <div className="flex items-center space-x-2 ml-4">
+                <User className="h-5 w-5" />
+                <span className="text-sm">{user.email}</span>
+                <button
+                  onClick={handleLogout}
+                  className="px-3 py-2 bg-red-600 hover:bg-red-700 rounded-md flex items-center"
+                >
+                  <LogOut className="h-4 w-4 mr-2" /> Logout
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={handleLogin}
+                className="ml-4 px-3 py-2 bg-blue-600 hover:bg-blue-700 rounded-md flex items-center"
+              >
+                <LogIn className="h-4 w-4 mr-2" /> Login
+              </button>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -131,7 +170,9 @@ const Navigation = () => {
                 {item.items ? (
                   <div className="relative">
                     <button
-                      onClick={() => setActiveDropdown(activeDropdown === index ? null : index)}
+                      onClick={() =>
+                        setActiveDropdown(activeDropdown === index ? null : index)
+                      }
                       className="w-full px-4 py-2 text-left flex items-center justify-between hover:bg-green-600 rounded-md transition-colors duration-150"
                     >
                       {item.title}
@@ -167,6 +208,34 @@ const Navigation = () => {
                 )}
               </div>
             ))}
+
+            {/* Mobile - Admin Navigation */}
+            {user && (
+              <Link
+                href="/admin/news"
+                className="block px-4 py-2 hover:bg-green-600 rounded-md transition-colors duration-150"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Kelola Berita
+              </Link>
+            )}
+
+            {/* Mobile - Login/Logout */}
+            {user ? (
+              <button
+                onClick={handleLogout}
+                className="w-full mt-4 px-4 py-2 bg-red-600 hover:bg-red-700 rounded-md flex items-center justify-center"
+              >
+                <LogOut className="h-4 w-4 mr-2" /> Logout ({user.email})
+              </button>
+            ) : (
+              <button
+                onClick={handleLogin}
+                className="w-full mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-md flex items-center justify-center"
+              >
+                <LogIn className="h-4 w-4 mr-2" /> Login
+              </button>
+            )}
           </div>
         </div>
       )}
