@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ComplaintPage = () => {
-  const whatsappNumber = '+6282136706087';
+  const whatsappNumber = '+6285165844130';
   const whatsappLink = `https://wa.me/${whatsappNumber}`;
 
   return (

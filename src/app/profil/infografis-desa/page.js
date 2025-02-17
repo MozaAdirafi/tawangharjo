@@ -207,7 +207,7 @@ const TawangharjoInfografis = () => {
                   <p className="text-sm text-gray-600">Total Penduduk</p>
                 </div>
                 <div className="bg-purple-50 p-4 rounded-lg text-center">
-                  <span className="block text-3xl font-extrabold text-purple-800">2.004</span>
+                  <span className="block text-3xl font-extrabold text-purple-800">993</span>
                   <p className="text-sm text-gray-600">Kepala Keluarga</p>
                 </div>
               </div>

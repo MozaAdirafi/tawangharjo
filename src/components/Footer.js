@@ -112,7 +112,7 @@ const Footer = () => {
                 <Youtube className="h-6 w-6" />
               </a>
               <a
-                href="https://web.whatsapp.com/send?phone=+6282136706087"
+                href="https://web.whatsapp.com/send?phone=+6285165844130"
                 className="text-gray-400 hover:text-white"
               >
                 <PhoneCall className="h-6 w-6" />

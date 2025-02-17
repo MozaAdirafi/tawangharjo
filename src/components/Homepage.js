@@ -25,7 +25,7 @@ const HomePage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [news, setNews] = useState([]);
-
+  console.log(error)
   useEffect(() => {
     const fetchWeather = async () => {
       try {
