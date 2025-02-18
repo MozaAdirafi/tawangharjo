@@ -46,6 +46,9 @@ const Navigation = () => {
         { title: "Struktur Organisasi", link: "/pemerintahan/struktur-organisasi" },
       ],
     },
+    { title: "BPD", link: "/BPD" },
+    { title: "RT/RW", link: "/RT-RW" },
+    { title: "LPMD", link: "/lpmd" },
     { title: "TP PKK", link: "/tp-pkk" },
   ];
 
